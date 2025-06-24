@@ -2,6 +2,9 @@
 
 This project is a Discord bot that tracks the status of a Minecraft server. It provides updates on the server's online/offline status, player count, and player names in a specified Discord channel using a rich embed.
 
+![image](https://github.com/user-attachments/assets/f0191663-70b8-4049-9563-6a78bbcdf415)
+
+
 ## Features
 
 - Periodically checks the status of a Minecraft server every 30 seconds.
