@@ -2,6 +2,10 @@
 
 This project is a Discord bot that tracks the status of a Minecraft server. It provides updates on the server's online/offline status, player count, and player names in a specified Discord channel using a rich embed.
 
+
+![image](https://github.com/user-attachments/assets/cdc4d310-155d-4e01-a718-e8ce89c79c0b)
+
+
 ## Features
 
 - Periodically checks the status of a Minecraft server every 30 seconds.
@@ -30,6 +34,7 @@ This project is a Discord bot that tracks the status of a Minecraft server. It p
    ```bash
    pip install -r requirements.txt
    ```
+
 
 3. **Create a `.env` file:**
    In the root directory of the project, create a `.env` file and add the following lines:
