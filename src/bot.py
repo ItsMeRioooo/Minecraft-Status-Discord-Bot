@@ -49,7 +49,6 @@ def print_bootup():
         https://github.com/ItsMeRioooo/Minecraft-Status-Discord-Bot
 """ + RESET)
 
-
 import discord
 import os
 import asyncio
@@ -68,7 +67,10 @@ SERVER_PORT = os.getenv('MINECRAFT_SERVER_PORT')
 SERVER_NAME = os.getenv('SERVER_NAME', 'Minecraft Server')
 SERVER_IMAGE = os.getenv('SERVER_IMAGE', None)
 SERVER_COLOR = os.getenv('SERVER_COLOR', '#00ff00')
-SERVER_VERSION = os.getenv('SERVER_VERSION', 'Unknown')
+
+# 🔧 Modified to replace "\n" with actual line breaks
+SERVER_VERSION = os.getenv('SERVER_VERSION', 'Unknown').replace("\\n", "\n")
+
 MESSAGE_ID_FILE = "status_message_id.txt"
 
 missing = []
@@ -113,7 +115,6 @@ async def send_status_update():
         status, player_count, player_names = get_server_status(SERVER_IP, SERVER_PORT)
         max_players = 0
         if status:
-            # Get max players from the server status
             server = JavaServer.lookup(f"{SERVER_IP}:{SERVER_PORT}")
             try:
                 max_players = server.status().players.max
@@ -125,7 +126,6 @@ async def send_status_update():
                 description="🟢 **ONLINE**",
                 color=parse_color(SERVER_COLOR)
             )
-            # Player count directly below ONLINE
             embed.add_field(
                 name="PLAYERS",
                 value=f"{player_count}/{max_players}",
@@ -139,13 +139,20 @@ async def send_status_update():
             embed.add_field(
                 name="VERSION",
                 value=SERVER_VERSION,
-                inline=True
+                inline=False  # Changed to False for better newline support
             )
             embed.add_field(
                 name="",
                 value=f"```\n{chr(10).join(player_names) if player_names else 'None'}\n```",
                 inline=False
             )
+        else:
+            embed = discord.Embed(
+                title=f"{SERVER_NAME} Status",
+                description="🔴 **OFFLINE**",
+                color=0xff0000
+            )
+
         if SERVER_IMAGE:
             embed.set_thumbnail(url=SERVER_IMAGE)
 
@@ -156,16 +163,10 @@ async def send_status_update():
             message = await channel.send(embed=embed)
             with open(MESSAGE_ID_FILE, "w") as f:
                 f.write(str(message.id))
-            if status:
-                print(GREEN + f"[INFO] Sent new status message at {now} | Status: Online | Players: {player_count}" + RESET)
-            else:
-                print(YELLOW + f"[INFO] Sent new status message at {now} | Status: Offline" + RESET)
+            print(f"[INFO] Sent new status message at {now}")
         else:
             await message.edit(embed=embed)
-            if status:
-                print(GREEN + f"[INFO] Updated status message at {now} | Status: Online | Players: {player_count}" + RESET)
-            else:
-                print(YELLOW + f"[INFO] Updated status message at {now} | Status: Offline" + RESET)
+            print(f"[INFO] Updated status message at {now}")
 
         await client.change_presence(
             activity=discord.Activity(
