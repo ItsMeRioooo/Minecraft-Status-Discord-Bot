@@ -1,6 +1,6 @@
 # Minecraft Status Discord Bot
 
-This project is a Discord bot that tracks the status of a Minecraft server. It provides updates on the server's online/offline status, player count, and player names in a specified Discord channel using a rich embed.
+A Discord bot that tracks the status of a Minecraft server. It provides updates on the server's online/offline status, player count, and player names in a specified Discord channel using a rich embed.
 
 ![image](https://github.com/user-attachments/assets/117ea580-cc08-44e8-9371-8a121337eb69)
 
